@@ -10,6 +10,7 @@ import {
     , getColors
     , addColor
     , deleteColor
+    , updateColor
  } from "../services/ColorServices"
 
 
@@ -33,6 +34,14 @@ function Color() {
         await deleteColor(id);
         setColors(colors.filter((color) => color.id !== id));
     }
+
+    const updateColorEvent = async (id: number) => {
+        const updatedColor = await updateColor(id, color);
+        setColors(prevColors => prevColors.map(color => color.id === id ? updatedColor : color));
+        setColor("");
+      };
+    
+
 
     useEffect(() => {
         async function fetchData() {
@@ -73,6 +82,20 @@ function Color() {
                         </button>
                         <button>
                             Edit
+                        </button>
+                    </li>
+                    
+                ))}
+            </ul>
+
+            <ul>
+                { colors.map((color) => (
+                    <li key={color.id} >
+                        { color.descripcion }
+                        <button onClick={
+                            () => updateColorEvent(color.id)
+                        } >
+                            Update
                         </button>
                     </li>
                     
