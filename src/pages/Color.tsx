@@ -37,8 +37,7 @@ function Color() {
 
     const updateColorEvent = async (id: number) => {
         const updatedColor = await updateColor(id, color);
-        setColors(prevColors => prevColors.map(color => color.id === id ? updatedColor : color));
-        setColor("");
+        setColors(oldColors => oldColors.map(color => color.id === id ? updatedColor : color));
       };
     
 
